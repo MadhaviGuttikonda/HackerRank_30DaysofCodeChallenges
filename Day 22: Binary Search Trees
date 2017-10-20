@@ -1,0 +1,116 @@
+// Java program
+
+import java.util.*;
+import java.io.*;
+class Node{
+    Node left,right;
+    int data;
+    Node(int data){
+        this.data=data;
+        left=right=null;
+    }
+}
+class Solution{
+	public static int getHeight(Node root){
+    if (root == null){
+        return -1;
+    }
+    else{
+        return 1 + Math.max( getHeight(root.left), getHeight(root.right) );
+    }
+}
+	public static Node insert(Node root,int data){
+        if(root==null){
+            return new Node(data);
+        }
+        else{
+            Node cur;
+            if(data<=root.data){
+                cur=insert(root.left,data);
+                root.left=cur;
+            }
+            else{
+                cur=insert(root.right,data);
+                root.right=cur;
+            }
+            return root;
+        }
+    }
+    public static void main(String args[]){
+            Scanner sc=new Scanner(System.in);
+            int T=sc.nextInt();
+            Node root=null;
+            while(T-->0){
+                int data=sc.nextInt();
+                root=insert(root,data);
+            }
+            int height=getHeight(root);
+            System.out.println(height);
+        }	
+}
+
+// c++ program
+
+#include <iostream>
+#include <cstddef>
+
+using namespace std;	
+
+class Node{
+    public:
+        int data;
+        Node *left;
+        Node *right;
+        Node(int d){
+            data = d;
+            left = NULL;
+            right = NULL;
+        }
+};
+class Solution{
+    public:
+  		Node* insert(Node* root, int data) {
+            if(root == NULL) {
+                return new Node(data);
+            }
+            else {
+                Node* cur;
+                if(data <= root->data){
+                    cur = insert(root->left, data);
+                    root->left = cur;
+                }
+                else{
+                    cur = insert(root->right, data);
+                    root->right = cur;
+               }
+
+               return root;
+           }
+        }
+        int getHeight(Node* root){
+    if ( root == NULL ){
+        return -1;
+    }
+    else{
+        return 1 + max( getHeight(root->left), getHeight(root->right) );
+    }
+}
+}; //End of Solution
+
+int main() {
+    Solution myTree;
+    Node* root = NULL;
+    int t;
+    int data;
+
+    cin >> t;
+
+    while(t-- > 0){
+        cin >> data;
+        root = myTree.insert(root, data);
+    }
+    int height = myTree.getHeight(root);
+    cout << height;
+
+    return 0;
+}
